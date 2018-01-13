@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+    <title>M = V * d</title>
+</head>
+<body style="padding:3em">
+<h1>M = V * d</h1>
+<form>
+    <div class="row">
+        <div class="col">
+            <input id="m" type="text" class="form-control" placeholder="mass">
+        </div>
+        <div class="col">
+            <input id="ro" type="text" class="form-control" placeholder="outer radius">
+        </div>
+        <div class="col">
+            <input id="ri" type="text" class="form-control" placeholder="inner radius">
+        </div>
+        <div class="col">
+            <input id="h" type="text" class="form-control" placeholder="height">
+        </div>
+        <div class="col">
+            <input id="d" type="text" class="form-control" placeholder="density">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <p class="btn btn-primary">calculate</p>
+        </div>
+    </div>
+</form>
+<p id="res"></p>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
+<script type="application/javascript">
+    $(function() {
+       $('.btn').click(function() {
+           var m = $('#m').val();
+           var ro = $('#ro').val();
+           var ri = $('#ri').val();
+           var h = $('#h').val();
+           var d = $('#d').val();
+
+           var res = '';
+           // m = d * h * pi * (ro^2 - ri^2) = (d * h * pi * ro^2) - (d * h * pi * ri^2)
+
+           // m - (d * h * pi * ro^2) = - (d * h * pi * ri^2)
+           // (d * h * pi * ro^2) = (d * h * pi * ri^2) + m
+           // ro^2 = ri^2 + m / (d * h * pi)
+           // ro = Math.sqrt(Math.pow(ri, 2) + m / (d * h * Math.pi))
+
+           // m + (d * h * pi * ri^2) = (d * h * pi * ro^2)
+           // (d * h * pi * ri^2) = (d * h * pi * ro^2) - m
+
+           // h = m / (d * pi * (ro^2 - ri^2))
+           if (m == '') res = "m = " + (d * h * Math.PI * (Math.pow(ro, 2) - Math.pow(ri, 2)));
+           if (ro == '') res = "ro = " + (Math.sqrt(Math.pow(ri, 2) + m / (d * h * Math.PI)));
+           if (ri == '') res = "ri = " + (Math.sqrt(Math.pow(ro, 2) - m / (d * h * Math.PI)));
+           if (h == '') res = "h = " + (m / (d * Math.PI * (Math.pow(ro, 2) - Math.pow(ri, 2))));
+           if (d == '') res = "d = " + (m / (h * Math.PI * (Math.pow(ro, 2) - Math.pow(ri, 2))));
+           $('#res').text(res);
+       });
+    });
+</script>
+</body>
+</html>
